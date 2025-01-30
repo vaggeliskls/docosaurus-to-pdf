@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  extract:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    command: [""]
+    volumes:
+      - ./pdf:/pdf
+    environment:
+      PDF_ARGS: ""
