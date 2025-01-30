@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_URL: ghcr.io/${{ github.actor }}/aws-kubectl
+  IMAGE_URL: ghcr.io/${{ github.repository }}
 
 jobs:
   ci:
