@@ -1,1 +1,1 @@
-# docosaurus-to-pdf
+# Docusaurus to PDF
