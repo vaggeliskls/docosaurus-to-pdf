@@ -27,10 +27,9 @@ RUN apt-get update && \
 
 # Install global npm packages
 RUN npm install -g docs-to-pdf fs-extra
-
-ENV DEFAULT_ARGS="--puppeteerArgs=--no-sandbox "
-ENV PDF_ARGS=""
-
 WORKDIR /pdf
-
-CMD ["sh", "-c", "npx docs-to-pdf $DEFAULT_ARGS $PDF_ARGS"]
+ENV DEFAULT_ARGS="--puppeteerArgs=--no-sandbox "
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD []
