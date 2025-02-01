@@ -3,11 +3,9 @@
 # Initialize the command array
 CMD=("docs-to-pdf")
 
-# Add required arguments
-CMD+=("--initialDocURLs=\"$DOCS_URL\"")
-CMD+=("--outputPDFFilename=\"$OUTPUT_PDF_FILENAME\"")
-
 # Add optional arguments if they are defined
+[ -n "$DOCS_URL" ] && CMD+=("--initialDocURLs=\"$DOCS_URL\"")
+[ -n "$OUTPUT_PDF_FILENAME" ] && CMD+=("--outputPDFFilename=\"$OUTPUT_PDF_FILENAME\"")
 [ -n "$PUPPETEER_ARGS" ] && CMD+=("--puppeteerArgs=\"$PUPPETEER_ARGS\"")
 [ -n "$EXCLUDE_URLS" ] && CMD+=("--excludeURLs=\"$EXCLUDE_URLS\"")
 [ -n "$EXLUDE_PATHS" ] && CMD+=("--excludePaths=\"$EXLUDE_PATHS\"")
