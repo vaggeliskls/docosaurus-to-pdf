@@ -3,6 +3,8 @@ CURRENT_DIR := $(CURDIR)
 
 IMAGE_URL := ghcr.io/vaggeliskls/docusaurus-to-pdf:latest
 
+log_console = (echo  "\n\033[1;36m--->\033[0m $(1)\n")
+
 help: 
 	@echo " Usage: make <task>"
 	@echo "   task options:"	
@@ -18,4 +20,4 @@ test: ## Test pdf generation
 
 extract: ## Extract pdf from docs url
 	@$(call log_console, "Extract pdf from docs url")
-	@docker run --rm --name doc-to-pdf --platform linux/amd64 -v $(CURRENT_DIR):/pdf -e DOCS_URL="https://docusaurus.io/docs/introduction" $(IMAGE_URL)
+	@docker run --rm --name doc-to-pdf --platform linux/amd64 -v $(CURRENT_DIR):/pdf -e DOCS_URL="https://docusaurus.io/docs/" $(IMAGE_URL)
