@@ -9,9 +9,7 @@ This repository allows you to generate a PDF from a Docusaurus documentation URL
 You can run the tool locally using Docker:
 
 ```sh
-docker run --rm -e DOCS_URL="https://your-docusaurus-site.com" \
-  -e OUTPUT_PDF_FILENAME="docs.pdf" \
-  ghcr.io/vaggeliskls/docusaurus-to-pdf:latest
+docker run --rm -v $(pwd):/pdf -e DOCS_URL="https://your-docusaurus-site.com" ghcr.io/vaggeliskls/docusaurus-to-pdf:latest
 ```
 
 ### Using GitHub Actions
@@ -34,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Docusaurus to PDF Action
-        uses: vagggelisksl/docusaurus-to-pdf@latest
+        uses: vaggeliskls/docusaurus-to-pdf@latest
         with:
           DOCS_URL: "https://your-docs-url.com"
 
