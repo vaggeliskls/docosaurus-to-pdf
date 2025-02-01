@@ -10,8 +10,12 @@ help:
 
 build : ## Build docker image
 	@$(call log_console, "Build docker image")
-	@docker build -t $(IMAGE_URL) .
+	@docker build --platform linux/amd64 -t $(IMAGE_URL) .
 
 test: ## Test pdf generation
 	@$(call log_console, "Test pdf generation")
-	@docker run --rm --platform linux/amd64 -v $(CURRENT_DIR):/pdf $(IMAGE_URL) --initialDocURLs="https://docusaurus.io/docs/" --contentSelector="article" --paginationSelector="a.pagination-nav__link.pagination-nav__link--next" 
+	@docker run --rm --platform linux/amd64 -v $(CURRENT_DIR):/pdf $(IMAGE_URL)
+
+extract: ## Extract pdf from docs url
+	@$(call log_console, "Extract pdf from docs url")
+	@docker run --rm --name doc-to-pdf --platform linux/amd64 -v $(CURRENT_DIR):/pdf -e DOCS_URL="https://docusaurus.io/docs/introduction" $(IMAGE_URL)
