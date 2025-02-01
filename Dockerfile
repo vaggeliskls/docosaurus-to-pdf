@@ -25,6 +25,7 @@ RUN apt-get update && \
     # Update font cache
     fc-cache -fv
 
+ENV PUPPETEER_SKIP_DOWNLOAD="true"
 # Install global npm packages
 RUN npm install -g docs-to-pdf fs-extra
 WORKDIR /pdf
