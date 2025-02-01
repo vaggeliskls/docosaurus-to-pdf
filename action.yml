@@ -1,0 +1,21 @@
+name: "Docusaurus to PDF"
+description: "Extracts PDF from a Docusaurus documentation URL"
+author: "Vaggelis KLS"
+branding:
+  icon: "book"
+  color: "blue"
+
+inputs:
+  url:
+    description: "Docusaurus docs URL"
+    required: true
+
+outputs:
+  pdf_path:
+    description: "Path to the generated PDF"
+
+runs:
+  using: "docker"
+  image: "ghcr.io/vaggeliskls/docusaurus-to-pdf:latest"
+  args:
+    - ${{ inputs.url }}
