@@ -1,0 +1,59 @@
+name: "Docusaurus to PDF"
+description: "Extracts a PDF from a Docusaurus documentation URL"
+author: "Vaggelis KLS"
+branding:
+  icon: "book"
+  color: "blue"
+
+inputs:
+  DOCS_URL:
+    description: "Docusaurus docs URL"
+    required: true
+  PUPPETEER_ARGS:
+    description: "Additional Puppeteer arguments"
+    required: false
+    default: "--no-sandbox"
+  EXCLUDE_URLS:
+    description: "URLs to exclude from the PDF"
+    required: false
+  EXCLUDE_PATHS:
+    description: "Path patterns to exclude from the PDF"
+    required: false
+  COVER_TITLE:
+    description: "Title for the PDF cover page"
+    required: false
+    default: "Documentation"
+  CONTENT_SELECTOR:
+    description: "CSS selector for the main content"
+    required: false
+    default: "article"
+  PAGINATION_SELECTOR:
+    description: "CSS selector for pagination elements"
+    required: false
+    default: "a.pagination-nav__link.pagination-nav__link--next"
+  EXCLUDE_SELECTOR:
+    description: "CSS selector for elements to exclude"
+    required: false
+    default: ".margin-vert--xl a,[class^='tocCollapsible'],.breadcrumbs,.theme-edit-this-page"
+  EXTRA_ARGS:
+    description: "Additional arguments for the docs-to-pdf command"
+    required: false
+  OUTPUT_PDF_FILENAME:
+    description: "Custom name for the generated PDF file"
+    required: false
+    default: "docs-to-pdf.pdf"
+
+runs:
+  using: "docker"
+  image: "ghcr.io/vaggeliskls/docusaurus-to-pdf:latest"
+  env:
+    DOCS_URL: ${{ inputs.DOCS_URL }}
+    PUPPETEER_ARGS: ${{ inputs.PUPPETEER_ARGS }}
+    EXCLUDE_URLS: ${{ inputs.EXCLUDE_URLS }}
+    EXCLUDE_PATHS: ${{ inputs.EXCLUDE_PATHS }}
+    COVER_TITLE: ${{ inputs.COVER_TITLE }}
+    CONTENT_SELECTOR: ${{ inputs.CONTENT_SELECTOR }}
+    PAGINATION_SELECTOR: ${{ inputs.PAGINATION_SELECTOR }}
+    EXCLUDE_SELECTOR: ${{ inputs.EXCLUDE_SELECTOR }}
+    EXTRA_ARGS: ${{ inputs.EXTRA_ARGS }}
+    OUTPUT_PDF_FILENAME: ${{ inputs.OUTPUT_PDF_FILENAME }}

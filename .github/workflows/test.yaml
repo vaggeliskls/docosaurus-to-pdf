@@ -1,0 +1,69 @@
+name: "Test Docusaurus to PDF"
+
+on:
+  workflow_dispatch:
+    inputs:
+      DOCS_URL:
+        description: "Docusaurus docs URL"
+        required: true
+        default: "https://your-docusaurus-site.com"
+      OUTPUT_PDF_FILENAME:
+        description: "Output PDF filename"
+        required: false
+        default: "docs-output.pdf"
+      PUPPETEER_ARGS:
+        description: "Additional Puppeteer arguments"
+        required: false
+        default: "--no-sandbox"
+      EXCLUDE_URLS:
+        description: "URLs to exclude from the PDF"
+        required: false
+      EXCLUDE_PATHS:
+        description: "Path patterns to exclude from the PDF"
+        required: false
+      COVER_TITLE:
+        description: "Title for the PDF cover page"
+        required: false
+        default: "Documentation"
+      CONTENT_SELECTOR:
+        description: "CSS selector for the main content"
+        required: false
+        default: "article"
+      PAGINATION_SELECTOR:
+        description: "CSS selector for pagination elements"
+        required: false
+        default: "a.pagination-nav__link.pagination-nav__link--next"
+      EXCLUDE_SELECTOR:
+        description: "CSS selector for elements to exclude"
+        required: false
+        default: ".margin-vert--xl a,[class^='tocCollapsible'],.breadcrumbs,.theme-edit-this-page"
+      EXTRA_ARGS:
+        description: "Additional arguments for the docs-to-pdf command"
+        required: false
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Docusaurus to PDF Action
+        uses: vagggelisksl/docusaurus-to-pdf@latest
+        with:
+          DOCS_URL: "${{ github.event.inputs.DOCS_URL }}"
+          OUTPUT_PDF_FILENAME: "${{ github.event.inputs.OUTPUT_PDF_FILENAME }}"
+          PUPPETEER_ARGS: "${{ github.event.inputs.PUPPETEER_ARGS }}"
+          EXCLUDE_URLS: "${{ github.event.inputs.EXCLUDE_URLS }}"
+          EXCLUDE_PATHS: "${{ github.event.inputs.EXCLUDE_PATHS }}"
+          COVER_TITLE: "${{ github.event.inputs.COVER_TITLE }}"
+          CONTENT_SELECTOR: "${{ github.event.inputs.CONTENT_SELECTOR }}"
+          PAGINATION_SELECTOR: "${{ github.event.inputs.PAGINATION_SELECTOR }}"
+          EXCLUDE_SELECTOR: "${{ github.event.inputs.EXCLUDE_SELECTOR }}"
+          EXTRA_ARGS: "${{ github.event.inputs.EXTRA_ARGS }}"
+
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Docusaurus-PDF
+          path: "${{ github.event.inputs.OUTPUT_PDF_FILENAME }}"

@@ -28,7 +28,16 @@ RUN apt-get update && \
 # Install global npm packages
 RUN npm install -g docs-to-pdf fs-extra
 WORKDIR /pdf
-ENV DEFAULT_ARGS="--puppeteerArgs=--no-sandbox "
+
+# ENVs Defaults
+ENV PUPPETEER_ARGS="--no-sandbox"
+ENV DOCS_URL="https://docusaurus.io/docs/"
+ENV CONTENT_SELECTOR="article"
+ENV PAGINATION_SELECTOR="a.pagination-nav__link.pagination-nav__link--next"
+ENV EXCLUDE_SELECTOR=".margin-vert--xl a,[class^='tocCollapsible'],.breadcrumbs,.theme-edit-this-page"
+ENV COVER_TITLE="Documentation"
+ENV OUTPUT_PDF_FILENAME="docs-to-pdf.pdf"
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
