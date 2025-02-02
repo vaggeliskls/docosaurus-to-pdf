@@ -17,9 +17,11 @@ ENV PATH=$PATH:${NPM_CONFIG_PREFIX}/bin
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_CACHE_DIR=${HOME}/.cache/puppeteer
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-USER node
+## Github action needs root access
+# USER node
 # Install global npm packages
-RUN npm install -g docs-to-pdf fs-extra
+RUN npm install -g docs-to-pdf fs-extra && \
+    rm -rf ${PUPPETEER_CACHE_DIR}
 WORKDIR /pdf
 
 # ENVs Defaults
@@ -34,6 +36,3 @@ ENV OUTPUT_PDF_FILENAME="docs-to-pdf.pdf"
 COPY --chown=node:node --chmod=755 entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD []
-
-
-
