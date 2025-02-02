@@ -15,6 +15,7 @@ ENV NPM_CONFIG_PREFIX=${HOME}/.npm-global
 ENV PATH=$PATH:${NPM_CONFIG_PREFIX}/bin
 # Skip the Chromium download when installing puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_CACHE_DIR=${HOME}/.cache/puppeteer
 USER node
 # Install global npm packages
 RUN npm install -g docs-to-pdf fs-extra
