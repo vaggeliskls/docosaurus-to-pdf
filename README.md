@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Docusaurus to PDF Action
-        uses: vaggeliskls/docusaurus-to-pdf@latest
+        uses: vaggeliskls/docusaurus-to-pdf@v1
         with:
           DOCS_URL: "https://your-docs-url.com"
 
