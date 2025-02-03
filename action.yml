@@ -45,7 +45,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "ghcr.io/vaggeliskls/docusaurus-to-pdf:latest"
+  image: "docker://ghcr.io/vaggeliskls/docusaurus-to-pdf:latest"
   env:
     DOCS_URL: ${{ inputs.DOCS_URL }}
     PUPPETEER_ARGS: ${{ inputs.PUPPETEER_ARGS }}
